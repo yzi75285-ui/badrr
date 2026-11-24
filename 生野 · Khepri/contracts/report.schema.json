@@ -1,0 +1,134 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "khepri://contracts/report.v1.schema.json",
+  "title": "KHEPRI report",
+  "description": "动作分析报告。第 1 段不创建报告。字段含义从本版起冻结，后续只能增加可选字段。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "report_id",
+    "media_id",
+    "task_id",
+    "created_at",
+    "sport",
+    "action",
+    "scope",
+    "quality",
+    "events",
+    "metrics",
+    "observations",
+    "interpretations",
+    "evidence",
+    "suggestions",
+    "retest"
+  ],
+  "properties": {
+    "contract_version": { "const": 1 },
+    "report_id": { "type": "string", "pattern": "^rep_[0-9a-hjkmnp-tv-z]{26}$" },
+    "media_id": { "type": "string", "pattern": "^med_[0-9a-hjkmnp-tv-z]{26}$" },
+    "task_id": { "type": "string", "pattern": "^task_[0-9a-hjkmnp-tv-z]{26}$" },
+    "created_at": { "type": "string", "minLength": 1 },
+    "sport": {
+      "anyOf": [{ "type": "null" }, { "type": "string", "enum": ["basketball", "sprint"] }]
+    },
+    "action": { "anyOf": [{ "type": "null" }, { "type": "string", "minLength": 1, "maxLength": 80 }] },
+    "scope": { "type": "string", "maxLength": 2000 },
+    "quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summary", "degraded", "notes"],
+      "properties": {
+        "summary": { "type": "string", "maxLength": 2000 },
+        "degraded": { "type": "boolean" },
+        "notes": { "type": "array", "maxItems": 20, "items": { "type": "string", "maxLength": 300 } }
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["event_id", "name", "time_seconds", "frame_index", "source"],
+        "properties": {
+          "event_id": { "type": "string", "minLength": 1, "maxLength": 80 },
+          "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+          "time_seconds": { "anyOf": [{ "type": "null" }, { "type": "number", "minimum": 0 }] },
+          "frame_index": { "anyOf": [{ "type": "null" }, { "type": "integer", "minimum": 0 }] },
+          "source": { "type": "string", "enum": ["algorithm", "manual"] }
+        }
+      }
+    },
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["metric_id", "name", "value", "unit", "method", "confidence", "conditions"],
+        "properties": {
+          "metric_id": { "type": "string", "minLength": 1, "maxLength": 80 },
+          "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+          "value": { "anyOf": [{ "type": "null" }, { "type": "number" }] },
+          "unit": { "type": "string", "maxLength": 40 },
+          "method": { "type": "string", "maxLength": 200 },
+          "confidence": { "type": "string", "enum": ["low", "medium", "high", "unknown"] },
+          "conditions": { "type": "string", "maxLength": 500 }
+        }
+      }
+    },
+    "observations": { "type": "array", "items": { "type": "string", "maxLength": 500 } },
+    "interpretations": { "type": "array", "items": { "type": "string", "maxLength": 500 } },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["evidence_id", "media_id", "time_seconds", "note"],
+        "properties": {
+          "evidence_id": { "type": "string", "minLength": 1, "maxLength": 80 },
+          "media_id": { "type": "string", "pattern": "^med_[0-9a-hjkmnp-tv-z]{26}$" },
+          "time_seconds": { "anyOf": [{ "type": "null" }, { "type": "number", "minimum": 0 }] },
+          "note": { "type": "string", "maxLength": 500 }
+        }
+      }
+    },
+    "suggestions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["suggestion_id", "focus", "basis", "exercise", "retest_method"],
+        "properties": {
+          "suggestion_id": { "type": "string", "minLength": 1, "maxLength": 80 },
+          "focus": { "type": "string", "maxLength": 200 },
+          "basis": { "type": "string", "maxLength": 500 },
+          "exercise": { "type": "string", "maxLength": 500 },
+          "retest_method": { "type": "string", "maxLength": 500 }
+        }
+      }
+    },
+    "retest": {
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["training_id", "conclusion", "note"],
+          "properties": {
+            "training_id": {
+              "anyOf": [
+                { "type": "null" },
+                { "type": "string", "pattern": "^trn_[0-9a-hjkmnp-tv-z]{26}$" }
+              ]
+            },
+            "conclusion": {
+              "type": "string",
+              "enum": ["improved", "unchanged", "worse", "insufficient"]
+            },
+            "note": { "type": "string", "maxLength": 500 }
+          }
+        }
+      ]
+    }
+  }
+}

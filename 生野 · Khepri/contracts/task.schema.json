@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "khepri://contracts/task.v1.schema.json",
+  "title": "KHEPRI task",
+  "description": "第 1 段只创建 kind=ingest 的预处理任务。重试沿用同一个 task_id，只增加 attempt。analyze、compare、retest 留给后续阶段。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "task_id",
+    "kind",
+    "media_id",
+    "idempotency_key",
+    "status",
+    "attempt",
+    "created_at",
+    "updated_at",
+    "error"
+  ],
+  "properties": {
+    "contract_version": { "const": 1 },
+    "task_id": { "type": "string", "pattern": "^task_[0-9a-hjkmnp-tv-z]{26}$" },
+    "kind": { "type": "string", "enum": ["ingest", "analyze", "compare", "retest"] },
+    "media_id": { "type": "string", "pattern": "^med_[0-9a-hjkmnp-tv-z]{26}$" },
+    "idempotency_key": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "status": { "type": "string", "enum": ["queued", "running", "succeeded", "failed"] },
+    "attempt": { "type": "integer", "minimum": 1 },
+    "created_at": { "type": "string", "minLength": 1 },
+    "updated_at": { "type": "string", "minLength": 1 },
+    "error": {
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["code", "message"],
+          "properties": {
+            "code": { "type": "string", "minLength": 1, "maxLength": 64 },
+            "message": { "type": "string", "minLength": 1, "maxLength": 500 }
+          }
+        }
+      ]
+    }
+  }
+}

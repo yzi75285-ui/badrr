@@ -1,0 +1,33 @@
+# dependencies
+node_modules/
+**/node_modules/
+
+# build
+dist/
+**/dist/
+web/dist/
+output/
+**/output/
+
+# local runtime data and secrets
+.env
+.env.*
+!.env.example
+.data/
+**/.data/
+var/
+**/var/
+**/data/*.sqlite
+**/data/*.sqlite-*
+**/data/assets/
+
+# logs and caches
+*.log
+.DS_Store
+.playwright-cli/
+.tmp/
+**/.tmp/
+
+# local backups / editor junk
+.git-mimir-local-backup/
+.workbuddy/

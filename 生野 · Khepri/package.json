@@ -1,0 +1,23 @@
+{
+  "name": "khepri",
+  "private": true,
+  "version": "0.1.0",
+  "description": "自用运动分析。第 1 段：网页与服务端素材流程。",
+  "workspaces": [
+    "server",
+    "web"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,web -c cyan,green \"npm run dev -w @khepri/server\" \"npm run dev -w @khepri/web\"",
+    "start": "npm run build -w @khepri/web && npm run build -w @khepri/server && npm run start -w @khepri/server",
+    "test": "npm run test -w @khepri/server",
+    "check": "npm run check -w @khepri/server && npm run check -w @khepri/web",
+    "accept": "npm run accept -w @khepri/server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

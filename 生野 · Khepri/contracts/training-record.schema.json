@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "khepri://contracts/training-record.v1.schema.json",
+  "title": "KHEPRI training record",
+  "description": "训练执行记录。第 1 段不创建。字段含义从本版起冻结，后续只能增加可选字段。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "training_id",
+    "created_at",
+    "updated_at",
+    "sport",
+    "action",
+    "source_report_id",
+    "source_media_id",
+    "exercise",
+    "purpose",
+    "execution_note",
+    "feeling",
+    "completed",
+    "retest_media_id"
+  ],
+  "properties": {
+    "contract_version": { "const": 1 },
+    "training_id": { "type": "string", "pattern": "^trn_[0-9a-hjkmnp-tv-z]{26}$" },
+    "created_at": { "type": "string", "minLength": 1 },
+    "updated_at": { "type": "string", "minLength": 1 },
+    "sport": {
+      "anyOf": [{ "type": "null" }, { "type": "string", "enum": ["basketball", "sprint"] }]
+    },
+    "action": { "anyOf": [{ "type": "null" }, { "type": "string", "minLength": 1, "maxLength": 80 }] },
+    "source_report_id": {
+      "anyOf": [{ "type": "null" }, { "type": "string", "pattern": "^rep_[0-9a-hjkmnp-tv-z]{26}$" }]
+    },
+    "source_media_id": {
+      "anyOf": [{ "type": "null" }, { "type": "string", "pattern": "^med_[0-9a-hjkmnp-tv-z]{26}$" }]
+    },
+    "exercise": { "type": "string", "maxLength": 500 },
+    "purpose": { "type": "string", "maxLength": 500 },
+    "execution_note": { "type": "string", "maxLength": 2000 },
+    "feeling": { "anyOf": [{ "type": "null" }, { "type": "string", "maxLength": 2000 }] },
+    "completed": { "anyOf": [{ "type": "null" }, { "type": "boolean" }] },
+    "retest_media_id": {
+      "anyOf": [{ "type": "null" }, { "type": "string", "pattern": "^med_[0-9a-hjkmnp-tv-z]{26}$" }]
+    }
+  }
+}

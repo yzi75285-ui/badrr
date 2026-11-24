@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "khepri://contracts/memory.v1.schema.json",
+  "title": "KHEPRI personal memory",
+  "description": "个人记忆。kind 区分本人陈述 stated、系统推测 inferred、算法测量 measured。第 1 段不创建。字段含义从本版起冻结，后续只能增加可选字段。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "memory_id",
+    "created_at",
+    "updated_at",
+    "kind",
+    "source",
+    "text",
+    "occurred_at"
+  ],
+  "properties": {
+    "contract_version": { "const": 1 },
+    "memory_id": { "type": "string", "pattern": "^mem_[0-9a-hjkmnp-tv-z]{26}$" },
+    "created_at": { "type": "string", "minLength": 1 },
+    "updated_at": { "type": "string", "minLength": 1 },
+    "kind": { "type": "string", "enum": ["stated", "inferred", "measured"] },
+    "source": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "text": { "type": "string", "minLength": 1, "maxLength": 2000 },
+    "occurred_at": { "anyOf": [{ "type": "null" }, { "type": "string", "minLength": 1, "maxLength": 40 }] }
+  }
+}

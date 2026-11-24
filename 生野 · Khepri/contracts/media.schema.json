@@ -1,0 +1,264 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "khepri://contracts/media.v1.schema.json",
+  "title": "KHEPRI media",
+  "description": "第 1 段契约。已有字段的含义不再改变；后续只能增加可选字段。本段 analysis.status 由服务固定写成 not_implemented，不表示分析已完成。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "media_id",
+    "task_id",
+    "created_at",
+    "updated_at",
+    "sport",
+    "action",
+    "capture",
+    "source",
+    "status",
+    "failure",
+    "probe",
+    "preview",
+    "analysis",
+    "access",
+    "attempt"
+  ],
+  "properties": {
+    "contract_version": { "const": 1 },
+    "media_id": { "type": "string", "pattern": "^med_[0-9a-hjkmnp-tv-z]{26}$" },
+    "task_id": { "type": "string", "pattern": "^task_[0-9a-hjkmnp-tv-z]{26}$" },
+    "created_at": { "type": "string", "minLength": 1 },
+    "updated_at": { "type": "string", "minLength": 1 },
+    "sport": {
+      "anyOf": [
+        { "type": "null" },
+        { "type": "string", "enum": ["basketball", "sprint"] }
+      ]
+    },
+    "action": {
+      "anyOf": [
+        { "type": "null" },
+        { "type": "string", "minLength": 1, "maxLength": 80 }
+      ]
+    },
+    "capture": { "$ref": "#/definitions/capture" },
+    "source": { "$ref": "#/definitions/source" },
+    "status": {
+      "type": "string",
+      "enum": ["receiving", "received", "preprocessing", "ready", "failed"]
+    },
+    "failure": {
+      "anyOf": [{ "type": "null" }, { "$ref": "#/definitions/failure" }]
+    },
+    "probe": {
+      "anyOf": [{ "type": "null" }, { "$ref": "#/definitions/probe" }]
+    },
+    "preview": { "$ref": "#/definitions/preview" },
+    "analysis": { "$ref": "#/definitions/analysis" },
+    "access": { "$ref": "#/definitions/access" },
+    "attempt": { "type": "integer", "minimum": 1 }
+  },
+  "definitions": {
+    "capture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "taken_at",
+        "device",
+        "viewpoint",
+        "location",
+        "distance_m",
+        "dominant_side",
+        "declared_frame_rate",
+        "speed_altered",
+        "notes"
+      ],
+      "properties": {
+        "taken_at": { "anyOf": [{ "type": "null" }, { "type": "string", "minLength": 1, "maxLength": 40 }] },
+        "device": { "anyOf": [{ "type": "null" }, { "type": "string", "minLength": 1, "maxLength": 80 }] },
+        "viewpoint": { "anyOf": [{ "type": "null" }, { "type": "string", "minLength": 1, "maxLength": 80 }] },
+        "location": { "anyOf": [{ "type": "null" }, { "type": "string", "minLength": 1, "maxLength": 120 }] },
+        "distance_m": { "anyOf": [{ "type": "null" }, { "type": "number", "minimum": 0, "maximum": 10000 }] },
+        "dominant_side": {
+          "anyOf": [
+            { "type": "null" },
+            { "type": "string", "enum": ["left", "right", "unknown"] }
+          ]
+        },
+        "declared_frame_rate": {
+          "anyOf": [{ "type": "null" }, { "type": "number", "minimum": 0, "maximum": 1000 }]
+        },
+        "speed_altered": { "anyOf": [{ "type": "null" }, { "type": "boolean" }] },
+        "notes": { "anyOf": [{ "type": "null" }, { "type": "string", "minLength": 1, "maxLength": 2000 }] }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "original_filename",
+        "client_import_label",
+        "byte_size",
+        "declared_content_type",
+        "content_type",
+        "kind"
+      ],
+      "properties": {
+        "original_filename": { "type": "string", "minLength": 1, "maxLength": 260 },
+        "client_import_label": {
+          "anyOf": [{ "type": "null" }, { "type": "string", "minLength": 1, "maxLength": 200 }]
+        },
+        "byte_size": { "type": "integer", "minimum": 0 },
+        "declared_content_type": {
+          "anyOf": [{ "type": "null" }, { "type": "string", "minLength": 1, "maxLength": 120 }]
+        },
+        "content_type": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "kind": { "type": "string", "enum": ["photo", "video", "unknown"] }
+      }
+    },
+    "failure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "message"],
+      "properties": {
+        "code": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "message": { "type": "string", "minLength": 1, "maxLength": 500 }
+      }
+    },
+    "preview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["available", "kind", "content_type", "method"],
+      "properties": {
+        "available": { "type": "boolean" },
+        "kind": { "anyOf": [{ "type": "null" }, { "type": "string", "enum": ["image", "video"] }] },
+        "content_type": { "anyOf": [{ "type": "null" }, { "type": "string", "minLength": 1, "maxLength": 120 }] },
+        "method": { "anyOf": [{ "type": "null" }, { "type": "string", "enum": ["copy", "transcode"] }] }
+      }
+    },
+    "analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "第 1 段允许的取值只有 not_implemented。后续阶段再写入 pending、ready 或 failed。",
+      "required": ["status", "report_id"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["not_implemented", "pending", "ready", "failed"]
+        },
+        "report_id": {
+          "anyOf": [
+            { "type": "null" },
+            { "type": "string", "pattern": "^rep_[0-9a-hjkmnp-tv-z]{26}$" }
+          ]
+        }
+      }
+    },
+    "access": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["original_url", "preview_url"],
+      "properties": {
+        "original_url": { "type": "string", "minLength": 1 },
+        "preview_url": { "anyOf": [{ "type": "null" }, { "type": "string", "minLength": 1 }] }
+      }
+    },
+    "probe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "probe_version",
+        "probed_at",
+        "tool",
+        "tool_version",
+        "container",
+        "video_codec",
+        "audio_codec",
+        "width",
+        "height",
+        "rotation_degrees",
+        "display_width",
+        "display_height",
+        "duration_seconds",
+        "frame_rate",
+        "frame_count",
+        "time_base",
+        "frame_timestamps",
+        "iphone",
+        "warnings"
+      ],
+      "properties": {
+        "probe_version": { "const": 1 },
+        "probed_at": { "type": "string", "minLength": 1 },
+        "tool": { "type": "string", "enum": ["ffprobe", "bmff", "image-header"] },
+        "tool_version": { "anyOf": [{ "type": "null" }, { "type": "string", "maxLength": 200 }] },
+        "container": { "anyOf": [{ "type": "null" }, { "type": "string", "minLength": 1, "maxLength": 80 }] },
+        "video_codec": { "anyOf": [{ "type": "null" }, { "type": "string", "minLength": 1, "maxLength": 40 }] },
+        "audio_codec": { "anyOf": [{ "type": "null" }, { "type": "string", "minLength": 1, "maxLength": 40 }] },
+        "width": { "anyOf": [{ "type": "null" }, { "type": "integer", "minimum": 0 }] },
+        "height": { "anyOf": [{ "type": "null" }, { "type": "integer", "minimum": 0 }] },
+        "rotation_degrees": { "anyOf": [{ "type": "null" }, { "type": "integer", "minimum": 0, "maximum": 359 }] },
+        "display_width": { "anyOf": [{ "type": "null" }, { "type": "integer", "minimum": 0 }] },
+        "display_height": { "anyOf": [{ "type": "null" }, { "type": "integer", "minimum": 0 }] },
+        "duration_seconds": { "anyOf": [{ "type": "null" }, { "type": "number", "minimum": 0 }] },
+        "frame_rate": { "anyOf": [{ "type": "null" }, { "type": "number", "minimum": 0 }] },
+        "frame_count": { "anyOf": [{ "type": "null" }, { "type": "integer", "minimum": 0 }] },
+        "time_base": { "anyOf": [{ "type": "null" }, { "type": "string", "minLength": 1, "maxLength": 40 }] },
+        "frame_timestamps": {
+          "anyOf": [{ "type": "null" }, { "$ref": "#/definitions/frameTimestamps" }]
+        },
+        "iphone": { "$ref": "#/definitions/iphone" },
+        "warnings": {
+          "type": "array",
+          "maxItems": 20,
+          "items": { "type": "string", "maxLength": 300 }
+        }
+      }
+    },
+    "frameTimestamps": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sample",
+        "sample_limit",
+        "first",
+        "last",
+        "interval_min",
+        "interval_max",
+        "variable",
+        "truncated"
+      ],
+      "properties": {
+        "sample": {
+          "type": "array",
+          "maxItems": 24,
+          "items": { "type": "number" }
+        },
+        "sample_limit": { "const": 24 },
+        "first": { "anyOf": [{ "type": "null" }, { "type": "number" }] },
+        "last": { "anyOf": [{ "type": "null" }, { "type": "number" }] },
+        "interval_min": { "anyOf": [{ "type": "null" }, { "type": "number" }] },
+        "interval_max": { "anyOf": [{ "type": "null" }, { "type": "number" }] },
+        "variable": { "anyOf": [{ "type": "null" }, { "type": "boolean" }] },
+        "truncated": { "type": "boolean" }
+      }
+    },
+    "iphone": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["likely", "model", "slow_motion_hint", "variable_frame_rate", "timeline", "notes"],
+      "properties": {
+        "likely": { "type": "boolean" },
+        "model": { "anyOf": [{ "type": "null" }, { "type": "string", "maxLength": 80 }] },
+        "slow_motion_hint": { "type": "boolean" },
+        "variable_frame_rate": { "anyOf": [{ "type": "null" }, { "type": "boolean" }] },
+        "timeline": { "type": "string", "enum": ["real", "unusable", "unknown"] },
+        "notes": {
+          "type": "array",
+          "maxItems": 20,
+          "items": { "type": "string", "maxLength": 300 }
+        }
+      }
+    }
+  }
+}

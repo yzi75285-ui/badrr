@@ -1,0 +1,88 @@
+.dawn {
+  position: fixed; inset: 0; z-index: 80; overflow: hidden;
+  background: #05040a; color: #f4efe6;
+}
+.dawn-leave { animation: dawn-out 700ms ease forwards; }
+@keyframes dawn-out { to { opacity: 0; } }
+
+.dawn-sky { position: absolute; inset: 0; background: #05040a; }
+.dawn-sky-day {
+  opacity: 0;
+  background:
+    linear-gradient(180deg, #3c335c 0%, #8d5c78 24%, #e08b74 52%, #f3c4a2 74%, #f7e6d0 100%);
+  transition: opacity 1.7s ease;
+}
+.dawn-day .dawn-sky-day, .dawn-leave .dawn-sky-day { opacity: 1; }
+
+.dawn-clouds { position: absolute; inset: 0; pointer-events: none; transition: opacity 1.5s ease; }
+.dawn-clouds.is-ink { color: #0c0b10; }
+.dawn-clouds.is-day { color: #fff7ef; opacity: 0; }
+.dawn-day .dawn-clouds.is-ink, .dawn-leave .dawn-clouds.is-ink { opacity: 0; }
+.dawn-day .dawn-clouds.is-day, .dawn-leave .dawn-clouds.is-day { opacity: 1; }
+.dawn-cloud { position: absolute; width: 160px; height: 70px; animation: drift linear infinite; }
+.dawn-cloud span { position: absolute; bottom: 0; border-radius: 50%; background: currentColor; }
+.dawn-cloud span:nth-child(1) { width: 52px; height: 52px; left: 10px; }
+.dawn-cloud span:nth-child(2) { width: 78px; height: 64px; left: 38px; bottom: 10px; }
+.dawn-cloud span:nth-child(3) { width: 48px; height: 46px; left: 96px; }
+.cloud-0 { top: 11%; left: 6%; animation-duration: 18s; }
+.cloud-1 { top: 20%; left: 58%; animation-duration: 24s; width: 190px; }
+.cloud-2 { top: 7%; left: 78%; animation-duration: 16s; }
+.cloud-3 { top: 28%; left: 28%; animation-duration: 28s; width: 130px; }
+@keyframes drift { from { transform: translateX(8vw); } to { transform: translateX(-28vw); } }
+
+.dawn-sun {
+  position: absolute; left: 50%; top: 34%; z-index: 2;
+  width: min(210px, 46vw); height: min(210px, 46vw);
+  transform: translate(-50%, -50%);
+}
+.dawn-sun svg { position: relative; z-index: 1; width: 100%; height: 100%; overflow: visible; }
+.dawn-core {
+  transform-box: view-box; transform-origin: center; transform: scale(0);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dawn-rise .dawn-core, .dawn-day .dawn-core, .dawn-leave .dawn-core { transform: scale(1); }
+.dawn-petal {
+  transform-box: view-box; transform-origin: center; transform: scale(0);
+  transition: transform 0.72s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dawn-rise .dawn-petal, .dawn-day .dawn-petal, .dawn-leave .dawn-petal { transform: scale(1); }
+.dawn-halo {
+  position: absolute; inset: 18%; border-radius: 50%; opacity: 0;
+  background: radial-gradient(circle, rgba(255, 236, 214, 0.95) 0%, rgba(201, 100, 66, 0.55) 38%, transparent 70%);
+  transition: opacity 1.4s ease, transform 1.6s ease;
+  transform: scale(0.4);
+}
+.dawn-day .dawn-halo, .dawn-leave .dawn-halo { opacity: 1; transform: scale(2.4); }
+.dawn-name {
+  margin: 8px 0 0; text-align: center; font-family: var(--serif);
+  font-size: 28px; letter-spacing: 0.28em; opacity: 0; transform: translateY(8px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.dawn-day .dawn-name, .dawn-leave .dawn-name { opacity: 1; transform: none; }
+
+.dawn-sea { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; height: 38%; overflow: hidden; transition: opacity 1.6s ease; }
+.sea-day { opacity: 0; }
+.dawn-day .sea-ink, .dawn-leave .sea-ink { opacity: 0; }
+.dawn-day .sea-day, .dawn-leave .sea-day { opacity: 1; }
+.sea-band {
+  position: absolute; inset: 0; display: flex; width: 200%;
+  animation: tide linear infinite;
+}
+.sea-band svg { width: 50%; height: 100%; flex: none; }
+@keyframes tide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.dawn-glint {
+  position: absolute; left: 50%; bottom: 8%; z-index: 4; width: 90px; height: 28%;
+  transform: translateX(-50%); opacity: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(240, 180, 138, 0.0), rgba(240, 180, 138, 0.55) 18%, rgba(159, 217, 207, 0.15) 70%, transparent);
+  filter: blur(6px);
+  transition: opacity 1.4s ease;
+}
+.dawn-day .dawn-glint, .dawn-leave .dawn-glint { opacity: 1; }
+
+.dawn-skip {
+  position: absolute; z-index: 5; top: calc(14px + env(safe-area-inset-top)); right: 16px;
+  min-height: 36px; padding: 0 12px; color: rgba(244, 239, 230, 0.86); font-size: 15px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sea-band, .dawn-cloud { animation: none; }
+}

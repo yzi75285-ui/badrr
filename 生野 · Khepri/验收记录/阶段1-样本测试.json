@@ -1,0 +1,348 @@
+{
+  "stage": 1,
+  "version": "0.1.0",
+  "recorded_at": "2026-11-17T07:15:50.177Z",
+  "personal_acceptance": "待测",
+  "note": "使用合成样本，不是本人实拍。本人使用验收保持待测。",
+  "result": "样本测试通过",
+  "steps": [
+    {
+      "name": "篮球样本上传",
+      "expected": "照片进入可回看，分析状态保持未实现",
+      "actual": "ready / not_implemented",
+      "passed": true,
+      "contract_version": 1,
+      "media_id": "med_1hvk3h9cqwa1tm43actkqt9cpc",
+      "task_id": "task_6tghbcaphjke7d9drtwvpwjzzr",
+      "created_at": "2026-11-17T07:15:48.514Z",
+      "updated_at": "2026-11-17T07:15:48.737Z",
+      "sport": "basketball",
+      "action": "投篮",
+      "capture": {
+        "taken_at": null,
+        "device": null,
+        "viewpoint": "侧面",
+        "location": null,
+        "distance_m": null,
+        "dominant_side": null,
+        "declared_frame_rate": null,
+        "speed_altered": null,
+        "notes": null
+      },
+      "source": {
+        "original_filename": "basketball-shot.png",
+        "client_import_label": null,
+        "byte_size": 2723,
+        "declared_content_type": "image/png",
+        "content_type": "image/png",
+        "kind": "photo"
+      },
+      "status": "ready",
+      "failure": null,
+      "probe": {
+        "probe_version": 1,
+        "probed_at": "2026-11-17T07:15:48.735Z",
+        "tool": "ffprobe",
+        "tool_version": "ffprobe version 4.0.2 Copyright (c) 2007-2018 the FFmpeg developers",
+        "container": "png_pipe",
+        "video_codec": null,
+        "audio_codec": null,
+        "width": 960,
+        "height": 540,
+        "rotation_degrees": 0,
+        "display_width": 960,
+        "display_height": 540,
+        "duration_seconds": null,
+        "frame_rate": null,
+        "frame_count": null,
+        "time_base": "1/25",
+        "frame_timestamps": null,
+        "iphone": {
+          "likely": false,
+          "model": null,
+          "slow_motion_hint": false,
+          "variable_frame_rate": null,
+          "timeline": "unknown",
+          "notes": []
+        },
+        "warnings": [
+          "照片只做静态观察，没有时间指标。"
+        ]
+      },
+      "preview": {
+        "available": true,
+        "kind": "image",
+        "content_type": "image/png",
+        "method": "copy"
+      },
+      "analysis": {
+        "status": "not_implemented",
+        "report_id": null
+      },
+      "attempt": 1,
+      "access": {
+        "original_url": "/api/media/med_1hvk3h9cqwa1tm43actkqt9cpc/original?access=8a727ca37561bdc0856590591468d587e916ffdb463afc21",
+        "preview_url": "/api/media/med_1hvk3h9cqwa1tm43actkqt9cpc/preview?access=8a727ca37561bdc0856590591468d587e916ffdb463afc21"
+      }
+    },
+    {
+      "name": "短跑样本上传",
+      "expected": "视频进入可回看，并有帧时间戳",
+      "actual": "ready / 时间戳 20",
+      "passed": true,
+      "contract_version": 1,
+      "media_id": "med_35xyjf7rzeq5ahpbspq4a9zy9q",
+      "task_id": "task_6dpaecgtbc5p2gnm1gvk2mv7f2",
+      "created_at": "2026-11-17T07:15:48.562Z",
+      "updated_at": "2026-11-17T07:15:48.955Z",
+      "sport": "sprint",
+      "action": "起跑",
+      "capture": {
+        "taken_at": null,
+        "device": null,
+        "viewpoint": null,
+        "location": null,
+        "distance_m": null,
+        "dominant_side": null,
+        "declared_frame_rate": null,
+        "speed_altered": false,
+        "notes": null
+      },
+      "source": {
+        "original_filename": "sprint-start.mp4",
+        "client_import_label": null,
+        "byte_size": 7254,
+        "declared_content_type": "video/mp4",
+        "content_type": "video/mp4",
+        "kind": "video"
+      },
+      "status": "ready",
+      "failure": null,
+      "probe": {
+        "probe_version": 1,
+        "probed_at": "2026-11-17T07:15:48.881Z",
+        "tool": "ffprobe",
+        "tool_version": "ffprobe version 4.0.2 Copyright (c) 2007-2018 the FFmpeg developers",
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "video_codec": "h264",
+        "audio_codec": null,
+        "width": 320,
+        "height": 180,
+        "rotation_degrees": 0,
+        "display_width": 320,
+        "display_height": 180,
+        "duration_seconds": 1,
+        "frame_rate": 30,
+        "frame_count": 30,
+        "time_base": "1/15360",
+        "frame_timestamps": {
+          "sample": [
+            0,
+            0.033333,
+            0.066667,
+            0.1,
+            0.133333,
+            0.166667,
+            0.2,
+            0.233333,
+            0.266667,
+            0.3,
+            0.333333,
+            0.366667,
+            0.4,
+            0.433333,
+            0.466667,
+            0.5,
+            0.533333,
+            0.566667,
+            0.6,
+            0.666667
+          ],
+          "sample_limit": 24,
+          "first": 0,
+          "last": 0.666667,
+          "interval_min": 0.033333,
+          "interval_max": 0.066667,
+          "variable": true,
+          "truncated": true
+        },
+        "iphone": {
+          "likely": false,
+          "model": null,
+          "slow_motion_hint": false,
+          "variable_frame_rate": true,
+          "timeline": "unknown",
+          "notes": []
+        },
+        "warnings": [
+          "帧间隔不稳定，时间关系尚未确认。"
+        ]
+      },
+      "preview": {
+        "available": true,
+        "kind": "video",
+        "content_type": "video/mp4",
+        "method": "copy"
+      },
+      "analysis": {
+        "status": "not_implemented",
+        "report_id": null
+      },
+      "attempt": 1,
+      "access": {
+        "original_url": "/api/media/med_35xyjf7rzeq5ahpbspq4a9zy9q/original?access=7452d29e7e9a67b3ac2290b77865d3d20d6de51d3905a0fe",
+        "preview_url": "/api/media/med_35xyjf7rzeq5ahpbspq4a9zy9q/preview?access=7452d29e7e9a67b3ac2290b77865d3d20d6de51d3905a0fe"
+      }
+    },
+    {
+      "name": "刷新列表",
+      "expected": "两条样本都还在",
+      "actual": "med_1hvk3h9cqwa1tm43actkqt9cpc, med_35xyjf7rzeq5ahpbspq4a9zy9q",
+      "passed": true
+    },
+    {
+      "name": "重启服务",
+      "expected": "同一标识仍可找回，且仍是可回看",
+      "actual": "med_1hvk3h9cqwa1tm43actkqt9cpc:ready, med_35xyjf7rzeq5ahpbspq4a9zy9q:ready",
+      "passed": true
+    },
+    {
+      "name": "失败",
+      "expected": "无法识别的文件失败，并给出原因",
+      "actual": "无法识别为照片或视频。请更换文件后重试。",
+      "passed": true,
+      "contract_version": 1,
+      "media_id": "med_1apdfwne43pgt6mzeaqrcmt0es",
+      "task_id": "task_080798q8e3f5e3s61a8y833me9",
+      "created_at": "2026-11-17T07:15:49.117Z",
+      "updated_at": "2026-11-17T07:15:49.132Z",
+      "sport": "sprint",
+      "action": "加速",
+      "capture": {
+        "taken_at": null,
+        "device": null,
+        "viewpoint": null,
+        "location": null,
+        "distance_m": null,
+        "dominant_side": null,
+        "declared_frame_rate": null,
+        "speed_altered": null,
+        "notes": null
+      },
+      "source": {
+        "original_filename": "bad.mp4",
+        "client_import_label": null,
+        "byte_size": 9,
+        "declared_content_type": "video/mp4",
+        "content_type": "application/octet-stream",
+        "kind": "unknown"
+      },
+      "status": "failed",
+      "failure": {
+        "code": "unsupported_type",
+        "message": "无法识别为照片或视频。请更换文件后重试。"
+      },
+      "probe": null,
+      "preview": {
+        "available": false,
+        "kind": null,
+        "content_type": null,
+        "method": null
+      },
+      "analysis": {
+        "status": "not_implemented",
+        "report_id": null
+      },
+      "attempt": 1,
+      "access": {
+        "original_url": "/api/media/med_1apdfwne43pgt6mzeaqrcmt0es/original?access=2b4a90ee5bf40361996ed31ffc5f4c3b60ce4e2d20f43271",
+        "preview_url": null
+      }
+    },
+    {
+      "name": "同一任务重试",
+      "expected": "素材和任务标识不变，尝试次数变为 2，结果可回看",
+      "actual": "med_1apdfwne43pgt6mzeaqrcmt0es / task_080798q8e3f5e3s61a8y833me9 / 第 2 次 / ready",
+      "passed": true,
+      "contract_version": 1,
+      "media_id": "med_1apdfwne43pgt6mzeaqrcmt0es",
+      "task_id": "task_080798q8e3f5e3s61a8y833me9",
+      "created_at": "2026-11-17T07:15:49.117Z",
+      "updated_at": "2026-11-17T07:15:49.806Z",
+      "sport": "sprint",
+      "action": "加速",
+      "capture": {
+        "taken_at": null,
+        "device": null,
+        "viewpoint": null,
+        "location": null,
+        "distance_m": null,
+        "dominant_side": null,
+        "declared_frame_rate": null,
+        "speed_altered": null,
+        "notes": null
+      },
+      "source": {
+        "original_filename": "basketball-shot.png",
+        "client_import_label": null,
+        "byte_size": 2723,
+        "declared_content_type": "image/png",
+        "content_type": "image/png",
+        "kind": "photo"
+      },
+      "status": "ready",
+      "failure": null,
+      "probe": {
+        "probe_version": 1,
+        "probed_at": "2026-11-17T07:15:49.805Z",
+        "tool": "ffprobe",
+        "tool_version": "ffprobe version 4.0.2 Copyright (c) 2007-2018 the FFmpeg developers",
+        "container": "png_pipe",
+        "video_codec": null,
+        "audio_codec": null,
+        "width": 960,
+        "height": 540,
+        "rotation_degrees": 0,
+        "display_width": 960,
+        "display_height": 540,
+        "duration_seconds": null,
+        "frame_rate": null,
+        "frame_count": null,
+        "time_base": "1/25",
+        "frame_timestamps": null,
+        "iphone": {
+          "likely": false,
+          "model": null,
+          "slow_motion_hint": false,
+          "variable_frame_rate": null,
+          "timeline": "unknown",
+          "notes": []
+        },
+        "warnings": [
+          "照片只做静态观察，没有时间指标。"
+        ]
+      },
+      "preview": {
+        "available": true,
+        "kind": "image",
+        "content_type": "image/png",
+        "method": "copy"
+      },
+      "analysis": {
+        "status": "not_implemented",
+        "report_id": null
+      },
+      "attempt": 2,
+      "access": {
+        "original_url": "/api/media/med_1apdfwne43pgt6mzeaqrcmt0es/original?access=2b4a90ee5bf40361996ed31ffc5f4c3b60ce4e2d20f43271",
+        "preview_url": "/api/media/med_1apdfwne43pgt6mzeaqrcmt0es/preview?access=2b4a90ee5bf40361996ed31ffc5f4c3b60ce4e2d20f43271"
+      }
+    },
+    {
+      "name": "不重复创建任务",
+      "expected": "该素材只有一张预处理任务",
+      "actual": "1",
+      "passed": true
+    }
+  ]
+}
